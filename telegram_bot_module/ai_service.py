@@ -21,6 +21,7 @@ class SenderList(Enum):
     OFFCAMPUS_PHODENGE = "Offcampus Phodenge"
     FRESHER_OFFCAMPUS = "Fresher Offcampus"
     FRESHERS_JOBS_UPDATES = "Freshers Jobs Updates"
+    join_Daily_Jobs_Placement_Update = "join_Daily_Jobs_Placement_Update"
 
 
 class AIService:
@@ -81,7 +82,10 @@ class AIService:
                 post.text = post.text    
             
             elif post and post.source == SenderList.JOBS_AND_INTERNSHIPS_1.value:
-                post.text = post.text       
+                post.text = post.text   
+
+            elif post and post.source == SenderList.join_Daily_Jobs_Placement_Update
+                post.text = handler.handle_source_6(post.text)
             
             refined.append(post)
 
