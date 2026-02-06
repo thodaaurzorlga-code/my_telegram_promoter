@@ -84,7 +84,7 @@ class AIService:
             elif post and post.source == SenderList.JOBS_AND_INTERNSHIPS_1.value:
                 post.text = post.text   
 
-            elif post and post.source == SenderList.join_Daily_Jobs_Placement_Update
+            elif post and post.source == SenderList.join_Daily_Jobs_Placement_Update:
                 post.text = handler.handle_source_6(post.text)
             
             refined.append(post)
