@@ -20,7 +20,7 @@ class TelegramBot:
         self.logger = logging.getLogger(__name__)
         
         self.config = ConfigManager(config_path)
-        self.config_promotion=ConfigManager(config_path="config_promotion.yaml")
+        # self.config_promotion=ConfigManager(config_path="config_promotion.yaml")
         assert self.config.validate(), "Config validation failed"
         
         tg_config = self.config.get_telegram_config()
@@ -32,7 +32,7 @@ class TelegramBot:
         
         self.fetcher = PostFetcher(self.client_mgr, self.config)
         self.distributor = PostDistributor(self.client_mgr, self.config)
-        self.distributor_channels = PostDistributorChannels(self.client_mgr, self.config_promotion)
+        self.distributor_channels = PostDistributorChannels(self.client_mgr)
         self.ai_service = AIService()
         self.logger.info("Bot initialized")
 
