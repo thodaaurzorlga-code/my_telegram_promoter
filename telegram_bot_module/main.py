@@ -68,10 +68,10 @@ class TelegramBot:
 
             # await self.distributor_channels.send_posts()
 
-            # if posts:
-            #     await self.distributor.send_posts(refined_posts)
-            # else:
-            #     self.logger.info("No posts to distribute")
+            if posts:
+                await self.distributor.send_posts(refined_posts)
+            else:
+                self.logger.info("No posts to distribute")
             
             return True
         finally:
