@@ -15,5 +15,5 @@ __all__ = [
     "ConfigManager",
     "TelegramClientManager",
     "PostFetcher",
-    "PostDistributor",
+    "PostDistributor"
 ]

@@ -24,10 +24,10 @@ sources:
     name: "Torchbearer"
   - username: "@off_campus_jobs_and_internships"  
     name: "Off Campus Jobs and Internships"
-  # - username: "@freshershunt"  
-  #   name: "Freshers Hunt"
-  # - username: "@getjobss"
-  #   name: "Get Jobs"
+  - username: "@TechJobUpdatesDaily"  
+    name: "Tech Jobs Daily"
+  - username: "@internshiptojobs"
+    name: "Internship To Jobs"
   # - username: "@fresher_offcampus_drives"
   #   name: "Fresher Offcampus Drives"
   # - username: "@Fresherjobsadda"  
@@ -45,6 +45,25 @@ destinations:
     name: "Primary Destination"
   # - username: "@another_dest"
   #   name: "Secondary Destination"
+
+promotion_destinations:
+  channels:
+       - "@my_promotions"
+
+
+  messages:
+    fresher_jobs:
+      text: "🔥 Freshers jobs available now"
+
+    remote_jobs:
+      text: "🌍 Remote job openings – apply today"
+
+    internship_alert:
+      text: "🎓 Internship opportunities open"
+
+    
+
+
 
 # Fetching Configuration
 fetching:

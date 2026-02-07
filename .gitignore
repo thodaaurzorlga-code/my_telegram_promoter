@@ -6,3 +6,4 @@ telegram_bot.log
 /telegram_bot_module/__pycache__/
 /Free_API_Load_balancer/.env
 /Free_API_Load_balancer/config.yaml
+.python_packages

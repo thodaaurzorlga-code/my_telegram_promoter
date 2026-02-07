@@ -1,0 +1,55 @@
+# Telegram API Credentials
+telegram:
+  api_id: 39367448
+  api_hash: "4b9a7be7ded2eb99822fa7eef2f935c9"
+  session_name: "session"
+
+# Source Groups/Channels
+sources:
+  - username: "@tcs_codevita_ans"
+    name: "Jobs and Internships"
+
+  # - username: "@jobs_and_internships_updates1"
+  #   name: "Jobs and Internships1"
+
+  # - username: "@internfreak"
+  #   name: "InternFreak"
+
+  # - username: "@TechUprise_Updates"
+  #   name: "Tech Uprise"
+
+  # - username: "@dot_aware"
+  #   name: "Dot Aware"
+
+  # - username: "@gocareers"
+  #   name: "Go Careers"
+
+  # - username: "@TorchBearerr"
+  #   name: "Torchbearer"
+
+  # - username: "@off_campus_jobs_and_internships"
+  #   name: "Off Campus Jobs and Internships"
+
+  # - username: "@TechJobUpdatesDaily"
+  #   name: "Tech Jobs Daily"
+
+  # - username: "@internshiptojobs"
+  #   name: "Internship To Jobs"
+
+# Promotion Messages
+messages:
+  fresher_jobs:
+    - text: "If anyone is looking for job opportunities in startups can check the job postings here at @Jobs_Lelo! 🔥"
+      path: "D:\\Desktop_C\\OPEN SOURCE\\telegram\\contacts.png"
+      time: "09:00"
+
+    - text: "If anyone is looking for job opportunities in startups can check the job postings here at @Jobs_Lelo! 🔥"
+      path: "D:\\Desktop_C\\OPEN SOURCE\\telegram\\contacts.png"
+      time: "09:00"
+
+  remote_jobs:
+    text: "🌍 Remote job openings apply today"
+
+  internship_alert:
+    text: "🎓 Internship opportunities open"
+

@@ -1,49 +1,37 @@
-post="""Company name: Cisco
-Role: Software Engineer Intern
-Batch Eligible: 2028 graduates
-Expected Stipend: INR 98K per month
-Location: Bangalore, India 
+post="""https://careers.wipro.com/job/INTERNSHIP_2026/134556-en_US/
 
-Apply Link: https://bit.ly/4bdqFoi 
+2024&2025&2026 batches eligible 👆🏻
 
-Do share with your Juniors too 
-
-Do like the post for LinkedIn Algorithm 😊 and provide your support for more such updates 😇
-
-_Source: Jobs and Internships | Date: 2026-01-22 14:53:28 UTC_"""
+Share link 👇👇 
+https://t.me/join_Daily_Jobs_Placement_Update"""
 
 import re
 
-def handle_source_1(text: str) -> str:
+def handle_source_6(text: str) -> str:
         if not text:
             return ""
 
-        if re.search(
-            r"Do like the post for LinkedIn Algorithm",
-            text,
-            flags=re.IGNORECASE
-        ):
-            return "hi"
-
-        if re.search(
-            r"https?://(www\.)?whatsapp\.com/\S+",
-            text,
-            flags=re.IGNORECASE
-        ):
-            return "hi"
-
         cleaned = text
 
+        # ❌ Remove Telegram invite/channel links (including your specific one)
         cleaned = re.sub(
-            r"Community for Jobs\s*&\s*Internships Updates:\s*https?://\S+",
+            r"https?://(t\.me|telegram\.me)/join_Daily_Jobs_Placement_Update\S*",
             "",
             cleaned,
             flags=re.IGNORECASE
         )
 
-        # ✅ Normalize spacing
+        # ❌ Remove lines like "Telegram link 👇👇"
+        cleaned = re.sub(
+            r"Telegram\s*link\s*👇+",
+            "",
+            cleaned,
+            flags=re.IGNORECASE
+        )
+
+        # Normalize spacing
         cleaned = re.sub(r"\n{3,}", "\n\n", cleaned).strip()
 
         return cleaned
 
-print(handle_source_1(post))
+print(handle_source_6(post))

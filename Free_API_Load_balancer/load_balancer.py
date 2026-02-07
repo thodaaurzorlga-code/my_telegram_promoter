@@ -27,6 +27,8 @@ class LoadBalancer:
 
     def start(self, text: str, max_output_tokens: int):
         data=self.get_next_endpoint(text, max_output_tokens)
+        if data is None:
+                raise Exception("No available API endpoint meets the criteria.")
         platform_name=data['Platform']
         user_email=data['User_ID']
         model=data['Model']
@@ -46,9 +48,15 @@ class LoadBalancer:
         for idx, row in self.data.iterrows():
             total_tokens_needed = prompt_tokens + max_output_tokens
             # print(row['Category'],type_model)
+            Current_Ct_Day=0
+            Current_Ct_Tokens=0
+            if row["Current_Ct_Tokens"] is None:
+                Current_Ct_Tokens=0
+            if row["Current_Ct_Day"] is None:
+                Current_Ct_Day=0    
             if (
-                row["Current_Ct_Tokens"] + total_tokens_needed <= row["Tokens per Day"]
-                and row["Current_Ct_Day"] + 1 <= row["Requests per Day"] 
+                Current_Ct_Tokens + total_tokens_needed <= row["Tokens per Day"]
+                and Current_Ct_Day + 1 <= row["Requests per Day"] 
 
             ):
                 eligible_rows.append(idx)

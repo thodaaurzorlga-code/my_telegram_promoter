@@ -5,3 +5,7 @@ groq
 pandas
 openpyxl
 google-genai
+# azure-functions
+# requests
+# lxml
+# python-dateutil

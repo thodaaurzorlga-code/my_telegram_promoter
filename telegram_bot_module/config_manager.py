@@ -25,7 +25,7 @@ class ConfigManager:
         if config_path is None:
             config_path = Path(__file__).parent / "config.yaml"
         else:
-            config_path = Path(config_path)
+            config_path = Path(__file__).parent / config_path
 
         if not config_path.exists():
             raise FileNotFoundError(f"Config file not found: {config_path}")
@@ -34,6 +34,7 @@ class ConfigManager:
         self._config = self._load_config()
         self.logger.info(f"Configuration loaded from {config_path}")
 
+    
     def _load_config(self) -> Dict[str, Any]:
         """Load YAML configuration file"""
         try:
@@ -79,6 +80,8 @@ class ConfigManager:
     def get_posting_config(self) -> Dict[str, Any]:
         """Get posting configuration"""
         return self.get("posting", {})
+    
+
 
 
     def validate(self) -> bool:
