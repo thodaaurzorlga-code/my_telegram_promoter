@@ -218,3 +218,62 @@ class UtilsHandlersGroups:
         cleaned = re.sub(r"\n{3,}", "\n\n", cleaned).strip()
 
         return cleaned
+    
+
+    def handle_source_8(self, text: str) -> str:
+        if not text:
+            return ""
+
+        cleaned = text
+
+        # ❌ Remove "*Join for more:* @TechJobUpdatesDaily"
+        cleaned = re.sub(
+            r"^\s*\*?\s*Join\s*for\s*more\s*:\s*\*?\s*@\w+\s*$",
+            "",
+            cleaned,
+            flags=re.IGNORECASE | re.MULTILINE
+        )
+
+        # Normalize spacing
+        cleaned = re.sub(r"\n{3,}", "\n\n", cleaned).strip()
+
+        return cleaned
+    
+
+    def handle_source_9(self, text: str) -> str:
+        if not text:
+            return ""
+
+        # ❌ If pdlink exists → delete entire post
+        if re.search(
+            r"https?://(www\.)?pdlink\.in/\S+",
+            text,
+            flags=re.IGNORECASE
+        ):
+            return ""
+
+        cleaned = text
+
+        # ❌ Remove WhatsApp Channel line
+        cleaned = re.sub(
+            r"^\s*👉?\s*WhatsApp\s*Channel\s*:?\s*https?://(www\.)?whatsapp\.com/\S+\s*$",
+            "",
+            cleaned,
+            flags=re.IGNORECASE | re.MULTILINE
+        )
+
+        # ❌ Remove Telegram Link line
+        cleaned = re.sub(
+            r"^\s*👉?\s*Telegram\s*Link\s*:?\s*https?://(t\.me|telegram\.me)/\S+\s*$",
+            "",
+            cleaned,
+            flags=re.IGNORECASE | re.MULTILINE
+        )
+
+        # Normalize spacing
+        cleaned = re.sub(r"\n{3,}", "\n\n", cleaned).strip()
+
+        return cleaned
+
+
+
