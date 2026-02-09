@@ -57,8 +57,8 @@ class TelegramBot:
         
         try:
 
-            # posts = await self.fetcher.fetch_all()
-            # refined_posts = self.ai_service.refine_posts(posts)
+            posts = await self.fetcher.fetch_all()
+            refined_posts = self.ai_service.refine_posts(posts)
 
             # with open("refined_posts.txt", "w", encoding="utf-8") as f:
             #     for original, refined in zip(posts, refined_posts):
@@ -70,10 +70,10 @@ class TelegramBot:
 
             # await self.distributor_channels.send_posts()
 
-            # if posts:
-            #     await self.distributor.send_posts(refined_posts)
-            # else:
-            #     self.logger.info("No posts to distribute")
+            if posts:
+                await self.distributor.send_posts(refined_posts)
+            else:
+                self.logger.info("No posts to distribute")
             
             await self.dm_promotion_service.run()
             
