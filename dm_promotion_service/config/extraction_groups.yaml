@@ -1,8 +1,11 @@
 extraction:
   frequency_days: 2
   groups:
-    - username: "@my_promotions"
-      name: "my_promotions"
+    - username: "@leetcode_answers"
+      name: "LeetCode Answers"
+
+      username: "@cognizant_exam_discussion_group"
+      name: "Cognizant Exam Discussion Group"
  
 
 dm_limits:

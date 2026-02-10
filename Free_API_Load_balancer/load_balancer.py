@@ -1,6 +1,7 @@
 import pandas as pd
 from pathlib import Path
 import yaml
+from datetime import datetime, timedelta
 from .model_provider import ProviderRegistry
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -13,6 +14,10 @@ class LoadBalancer:
     def __init__(self):
         self.data = pd.read_excel(LIMITS_FILE)
         self.config = self.load_config(CONFIG_FILE)
+        # Ensure Last_Reset column exists
+        if "Last_Reset" not in self.data.columns:
+            self.data["Last_Reset"] = datetime.now().isoformat()
+            self.data.to_excel(LIMITS_FILE, index=False)
 
     @staticmethod   
     def load_config(config_path:Path):
@@ -24,6 +29,22 @@ class LoadBalancer:
         if not text:
             return 0
         return max(1, len(text) // 4)
+    
+    def _reset_if_needed(self):
+        """Reset daily counters if 24 hours have passed since last reset"""
+        now = datetime.now()
+        for idx, row in self.data.iterrows():
+            try:
+                last_reset = datetime.fromisoformat(row["Last_Reset"])
+                if now - last_reset >= timedelta(hours=24):
+                    # Reset daily counters
+                    self.data.at[idx, "Current_Ct_Day"] = 0
+                    self.data.at[idx, "Current_Ct_Tokens"] = 0
+                    self.data.at[idx, "Current_Pct_Ct"] = 0.0
+                    self.data.at[idx, "Current_Pct_Tokens"] = 0.0
+                    self.data.at[idx, "Last_Reset"] = now.isoformat()
+            except:
+                pass  # Skip if Last_Reset is invalid; will be set on next update
 
     def start(self, text: str, max_output_tokens: int):
         data=self.get_next_endpoint(text, max_output_tokens)
@@ -41,6 +62,9 @@ class LoadBalancer:
         return provider_instance
     
     def get_next_endpoint(self, text: str, max_output_tokens: int):
+        # Check and reset counters if 24 hours have passed
+        self._reset_if_needed()
+        
         prompt_tokens = self.estimate_tokens(text)
 
         eligible_rows = []
@@ -90,6 +114,10 @@ class LoadBalancer:
             self.data.at[selected_idx, "Current_Ct_Day"]
             / self.data.at[selected_idx, "Requests per Day"]
         )
+        
+        # 🔹 Ensure Last_Reset is set
+        if pd.isna(self.data.at[selected_idx, "Last_Reset"]):
+            self.data.at[selected_idx, "Last_Reset"] = datetime.now().isoformat()
 
         # 🔹 Persist updates
         self.data.to_excel(LIMITS_FILE, index=False)

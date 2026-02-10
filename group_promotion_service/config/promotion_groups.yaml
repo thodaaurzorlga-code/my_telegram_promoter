@@ -1,0 +1,41 @@
+groups:
+  - username: "@Accenture_answers_discussion"
+    name: "Accenture_answers_discussion"
+    time_ranges:
+      - "16:00-18:00"
+    link_enabled: false
+    max_posts_per_day: 0
+    max_replies_per_day: 1
+    max_reactions_per_day: 3
+
+    username: "@tcs_solution"
+    name: "tcs_solution"
+    time_ranges:
+      - "20:00-22:00"
+    link_enabled: false
+    max_posts_per_day: 0
+    max_replies_per_day: 1
+    max_reactions_per_day: 3
+
+    username: "@nitgoastudents"
+    name: "nitgoastudents"
+    time_ranges:
+      - "14:00-16:00"
+    link_enabled: false
+    max_posts_per_day: 0
+    max_replies_per_day: 1
+    max_reactions_per_day: 3
+
+    username: "@code2careerai"
+    name: "code2careerai"
+    time_ranges:
+      - "18:00-20:00"
+    link_enabled: false
+    max_posts_per_day: 0
+    max_replies_per_day: 1
+    max_reactions_per_day: 3
+
+
+message_rotation:
+  policy: "random_no_repeat_7days"
+  reaction_emojis: ["👍", "❤️", "🔥", "💯"]

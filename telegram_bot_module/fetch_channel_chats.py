@@ -9,7 +9,7 @@ api_id= 39367448
 api_hash= "4b9a7be7ded2eb99822fa7eef2f935c9"
 channel = "leetcode_answers"  # @username OR phone number
 
-DAYS = 2
+DAYS = 10
 cutoff_date = datetime.now(timezone.utc) - timedelta(days=DAYS)
 # command to run the script:
 # (.venv) D:\Desktop_C\OPEN SOURCE\telegram>python -m telegram_bot_module.fetch_channel_chats
