@@ -116,17 +116,25 @@ class ConversationHandler:
         return stats
     
     async def _send_dm(self, user_id: int, message: str) -> bool:
-        """Send single DM"""
+        """Send single DM, resolving entity if needed"""
         client = self.client_manager.get_client()
         if client is None:
-            raise RuntimeError("Telegram client not initialized")        
+            raise RuntimeError("Telegram client not initialized")
+
         try:
-            await client.send_message(user_id, message)
+            # Resolve entity (fetch from Telegram if not cached)
+            try:
+                entity = await client.get_input_entity(user_id)
+            except ValueError:
+                entity = await client.get_entity(user_id)
+
+            await client.send_message(entity, message)
             self.logger.info(f"Sent DM to {user_id}: {message[:50]}...")
             return True
         except Exception as e:
             self.logger.warning(f"Failed to send DM to {user_id}: {e}")
             return False
+
     
     async def _send_document(self, user_id: int) -> bool:
         """Send Excel document"""

@@ -1,14 +1,19 @@
 extraction:
-  frequency_days: 2
+  frequency_days: 1
   groups:
-    - username: "@leetcode_answers"
-      name: "LeetCode Answers"
+    - username: "@deloitte_exam_answers"
+      name: "My Promotions"
 
-      username: "@cognizant_exam_discussion_group"
-      name: "Cognizant Exam Discussion Group"
+    # - username: "@leetcode_answers"
+    #   name: "LeetCode Answers"
+
+      # username: "@cognizant_exam_discussion_group"
+      # name: "Cognizant Exam Discussion Group"
+ 
+
  
 
 dm_limits:
-  max_per_day: 1
+  max_per_day: 2
 
 promotion_channel: "Jobs_Lelo"
