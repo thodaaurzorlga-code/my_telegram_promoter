@@ -1,18 +1,18 @@
 levels:
   level_0:
-    message: "hey are you looking for placements or internships??"
+    message: "bro are you looking for placements i have some hr contacts hiring currently ??"
     
   level_2:
     messages:
-      - "i have some emails you can use they are hiring currently"
+      - "i have some emails you can use for cold mail they are hiring currently. if you want i can send"
     
   level_4:
     messages:
       - "sending just 1 min"
       - "[EMAIL_XLSX]"
       - "while cold mailing just remember to have one deployed project"
-      - "also if you want than join this group here my friend daily post job updates and hr contacts links https://t.me/Jobs_Lelo"
-    
+      - "also u can join this group https://t.me/Jobs_Lelo there we post daily job updates verified hr contacts and sometimes even referrals a lot of ppl find it useful"
+      
   level_5:
     message: "While applying the job updates try to contact me if possible I will provide the referral through my contact"
 
