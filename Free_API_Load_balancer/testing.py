@@ -7,7 +7,7 @@
 from google import genai
 
 client = genai.Client(api_key="AIzaSyBpiVg19MLrLL2cVtnhV8693fDBpKLzbtk")
-
+# kssj
 response = client.models.generate_content(
     model="models/gemini-flash-latest", 
     contents="Hello, how are you?"
