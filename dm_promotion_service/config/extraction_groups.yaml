@@ -2,14 +2,14 @@ extraction:
   frequency_days: 1
   groups:
 
-    - username: "@codechef_answers"
+    # - username: "@codechef_answers"
+    #   name: "My Promotions"
+
+    - username: "@my_promotions"
       name: "My Promotions"
 
-      username: "@my_promotions"
-      name: "My Promotions"
-
-      username: "@leetcode_answers"
-      name: "LeetCode Answers"
+      # username: "@leetcode_answers"
+      # name: "LeetCode Answers"
 
       # username: "@cognizant_exam_discussion_group"
       # name: "Cognizant Exam Discussion Group"

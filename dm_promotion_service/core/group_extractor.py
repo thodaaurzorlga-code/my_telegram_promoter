@@ -38,7 +38,7 @@ class GroupExtractor:
                 messages = []
                 async for message in client.iter_messages(
                     group['username'],
-                    limit=20,
+                    limit=5,
                     reverse=False
                 ):
                     if message.text and message.sender_id:
@@ -55,7 +55,8 @@ class GroupExtractor:
                     if stats['added'] >= max_additions:
                         break
                     
-                    is_seeker = await self.analyzer.categorize_user(msg['text'])
+                    # is_seeker = await self.analyzer.categorize_user(msg['text'])
+                    is_seeker = True  # Assume all users are job seekers for now
                     
                     if is_seeker:
                         added = self.user_manager.add_user(
