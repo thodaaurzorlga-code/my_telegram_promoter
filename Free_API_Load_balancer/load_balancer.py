@@ -64,7 +64,15 @@ class LoadBalancer:
         platform_name=data['Platform']
         user_email=data['User_ID']
         model=data['Model']
-        api_key = self.config['users'][user_email][platform_name]['api_keys'][0]['key']
+        
+        env_key_name = self.config['users'][user_email][platform_name].get('env_key')
+
+        if env_key_name:
+            api_key = os.getenv(env_key_name)
+
+        # Fallback to YAML (local development)
+        if not api_key:
+            api_key = self.config['users'][user_email][platform_name]['api_keys'][0]['key']
 
         provider_class=ProviderRegistry.get(platform_name)
         provider_instance=provider_class(api_key=api_key,model=model)
