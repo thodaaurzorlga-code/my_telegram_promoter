@@ -1,12 +1,12 @@
 extraction:
-  frequency_days: 2
+  frequency_days: 1
   groups:
 
-    - username: "@codechef_answers"
-      name: "My Promotions"
-
-    # - username: "@my_promotions"
+    # - username: "@codechef_answers"
     #   name: "My Promotions"
+
+    - username: "@my_promotions"
+      name: "My Promotions"
     # - username: "@leetcode_answers"
     #   name: "LeetCode Answers"
 
@@ -17,6 +17,6 @@ extraction:
  
 
 dm_limits:
-  max_per_day: 1
+  max_per_day: 2
 
 promotion_channel: "Jobs_Lelo"

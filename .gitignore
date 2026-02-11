@@ -7,3 +7,4 @@ telegram_bot.log
 /Free_API_Load_balancer/.env
 /Free_API_Load_balancer/config_local.yaml
 .python_packages
+/session_b64.txt
