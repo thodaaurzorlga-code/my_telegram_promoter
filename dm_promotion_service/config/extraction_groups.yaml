@@ -18,6 +18,6 @@ extraction:
  
 
 dm_limits:
-  max_per_day: 1
+  max_per_day: 2
 
 promotion_channel: "Jobs_Lelo"
