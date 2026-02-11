@@ -57,6 +57,17 @@ class ResponseAnalyzer:
                 ai_response = ai_response.strip().lower()
                 print(prompt)
                 print(f"AI response: '{ai_response}'")
+                
+                # Check if response is numeric (error case)
+                try:
+                    float(ai_response)
+                    # If it's numeric, treat as unclear
+                    self.logger.warning(f"AI returned numeric response: {ai_response}, treating as unclear")
+                    return "unclear"
+                except ValueError:
+                    # Good - it's text, continue processing
+                    pass
+                
                 if ai_response.startswith("yes") or "yes" in ai_response:
                     return "yes"
                 if ai_response.startswith("no") or "no" in ai_response:
@@ -83,36 +94,36 @@ class ResponseAnalyzer:
             return "unclear"
         
     def give_response(self, response_text: str, level: str = None) -> str:
-        """Analyze response: returns 'yes', 'no', or 'unclear'. Uses per-level prompts when available."""
+        """Generate AI response for user message. Uses per-level prompts when available."""
         try:
-            if not response_text:
-                return "unclear"
+            if not response_text or not response_text.strip():
+                return ""
 
             # Choose prompt: per-level prompt if available, otherwise generic
-            prompt_template = None
-            if level:
-                prompt_template = self.config.get('response_prompts', {}).get(level)
+            prompt_template = self.config.get('response_prompts', {}).get(level) if level else None
 
             if prompt_template:
                 prompt = prompt_template.format(message=response_text.strip())
             else:
                 prompt = (
-                    "You are a classifier. Determine if the user's reply to a job offer is an affirmative 'yes', "
-                    "a negative 'no', or 'unclear'. Reply with only one word: yes, no, or unclear.\n\n"
-                    "User reply: \"" + response_text.strip() + "\""
+                    "You are a helpful assistant. Generate a natural, short response to: "
+                    "\"" + response_text.strip() + "\""
                 )
 
             try:
-                ai_response = generate(prompt=prompt, max_output_tokens=10)
-                ai_response = ai_response.strip().lower()
-
+                ai_response = generate(prompt=prompt, max_output_tokens=100)
+                ai_response = ai_response.strip()
+                
+                # Validate response is not empty
+                if not ai_response:
+                    self.logger.warning("AI returned empty response")
+                    return ""
+                
                 return ai_response
             except Exception as e:
-                # Fallback to lightweight keyword matching if AI call fails
-                self.logger.warning(f"AI analyze_response failed, falling back to keywords: {e}")
-
-                return "unclear"
+                self.logger.warning(f"AI give_response failed: {e}")
+                return ""
 
         except Exception as e:
-            self.logger.error(f"Error analyzing response: {e}")
-            return "unclear"
+            self.logger.error(f"Error generating response: {e}")
+            return ""

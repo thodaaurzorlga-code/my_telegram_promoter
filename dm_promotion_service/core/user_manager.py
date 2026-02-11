@@ -30,7 +30,9 @@ class UserManager:
                 'last_message_date',
                 'last_response',
                 'response_status',
+                'level_3_ai_response',
                 'subscription_checked',
+                'level_4_reminder_sent',
                 'decision',
                 'notes'
             ])
@@ -48,7 +50,9 @@ class UserManager:
                 'last_message_date': 'string',
                 'last_response': 'string',
                 'response_status': 'string',
+                'level_3_ai_response': 'string',
                 'subscription_checked': 'boolean',
+                'level_4_reminder_sent': 'boolean',
                 'decision': 'string',
                 'notes': 'string'
             })
@@ -77,7 +81,9 @@ class UserManager:
             'last_message_date': None,
             'last_response': None,
             'response_status': None,
+            'level_3_ai_response': None,
             'subscription_checked': False,
+            'level_4_reminder_sent': False,
             'decision': None,
             'notes': 'Added during extraction'
         }
@@ -112,6 +118,18 @@ class UserManager:
         mask = self.df['user_id'] == user_id
         self.df.loc[mask, 'last_response'] = response_text
         self.df.loc[mask, 'response_status'] = status
+        self._save_excel()
+    
+    def update_level_3_ai_response(self, user_id: int, ai_response: str):
+        """Store the AI-generated response from level 3"""
+        mask = self.df['user_id'] == user_id
+        self.df.loc[mask, 'level_3_ai_response'] = ai_response
+        self._save_excel()
+    
+    def mark_level_4_reminder_sent(self, user_id: int):
+        """Mark that level 4 reminder has been sent for this user (send only once)"""
+        mask = self.df['user_id'] == user_id
+        self.df.loc[mask, 'level_4_reminder_sent'] = True
         self._save_excel()
     
     def update_user_subscription(self, user_id: int, is_subscribed: bool, decision: str = None):

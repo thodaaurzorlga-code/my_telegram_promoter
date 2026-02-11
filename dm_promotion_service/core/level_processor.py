@@ -6,10 +6,8 @@ from typing import Dict
 from .user_manager import UserManager
 from .conversation_handler import ConversationHandler
 from .response_analyzer import ResponseAnalyzer
-import yaml
 from telethon.tl.functions.channels import GetParticipantRequest
 from telethon.errors import UserNotParticipantError
-from pathlib import Path
 
 BASE_DIR= Path(__file__).parent.parent
 
@@ -58,7 +56,7 @@ class LevelProcessor:
         
         for user in users:
             response = await self._get_latest_message(user['user_id'])
-            
+            self.logger.info(f"Level 1 processing: user {user['user_id']} response is '{response}'")
             if response:
                 status = self.analyzer.analyze_response(response, level='level_1')
                 self.user_manager.update_user_response(user['user_id'], response, status)
@@ -69,6 +67,7 @@ class LevelProcessor:
                 elif status == "no":
                     stats['declined'] += 1
                 elif status == "unclear":
+                    self.user_manager.update_user_level(user['user_id'], 1)
                     stats['unclear'] += 1
             else:
                 stats['no_response'] += 1
@@ -91,19 +90,11 @@ class LevelProcessor:
             if response:
                 ai_response = self.analyzer.give_response(response, level='level_3')
                 print(f"AI analysis for user {user['user_id']} at level 3: '{ai_response}'")
-                CONFIG_PATH = BASE_DIR / "config" / "level_messages.yaml"
-                with open(CONFIG_PATH, "r") as f:
-                        data = yaml.safe_load(f)
                 
-                data['levels']['level_4'] = ai_response
-
-                with open(CONFIG_PATH, "w") as f:
-                        yaml.safe_dump(data, f)
-                
+                # Store the AI-generated response to send back at level 4
+                self.user_manager.update_level_3_ai_response(user['user_id'], ai_response)
                 self.user_manager.update_user_response(user['user_id'], response, "yes")
-
                 self.user_manager.update_user_level(user['user_id'], 3)
-
             else:
                 stats['no_response'] += 1
             
@@ -113,58 +104,68 @@ class LevelProcessor:
         return stats
     
     async def _process_level_4(self) -> Dict[str, int]:
-        """Check level 4 users for channel subscription"""
-        stats = {"subscribed": 0, "not_subscribed": 0, "sent_l5": 0}
+        """Check level 4 users for channel subscription and send reminder after 1-2 days if not subscribed"""
+        stats = {"subscribed": 0, "not_subscribed": 0, "reminder_sent": 0}
         
-        users = self.user_manager.get_users_by_level(4)
+        users = self.user_manager.get_users_by_level(2)
         
         for user in users:
             is_member = await self._check_channel_member(user['user_id'])
             
             if is_member:
+                # User subscribed - move to level 5 (final check)
                 self.user_manager.update_user_subscription(
                     user['user_id'],
                     True,
                     decision="success"
                 )
+                self.user_manager.update_user_level(user['user_id'], 5)
                 stats['subscribed'] += 1
             else:
+                # User hasn't subscribed - check if 1+ days have passed since level 4 message
                 last_msg_date = user.get('last_message_date')
+                reminder_already_sent = user.get('level_4_reminder_sent', False)
                 
-                if last_msg_date:
+                if last_msg_date and not reminder_already_sent:
                     try:
-                        from datetime import datetime
                         msg_date = datetime.fromisoformat(last_msg_date)
                         days_passed = (datetime.now(timezone.utc) - msg_date).days
                         
+                        # Send reminder after 1+ days (only once)
                         if days_passed >= 1:
-                            # message = "While applying the job updates try to contact me if possible I will provide the referral through my contact"
-                            message = self.config['levels']['level_5']['messages']
-                            if await self.conv_handler._send_dm(user['user_id'], message):
-                                self.user_manager.update_user_level(user['user_id'], 5)
-                                stats['sent_l5'] += 1
-                    except:
-                        pass
+                            reminder_messages = self.conv_handler.config['levels']['level_5']['messages']
+                            
+                            for reminder_msg in reminder_messages:
+                                if await self.conv_handler._send_dm(user['user_id'], reminder_msg):
+                                    stats['reminder_sent'] += 1
+                                await asyncio.sleep(0.5)
+                            
+                            # Mark reminder as sent so it never sends again
+                            self.user_manager.mark_level_4_reminder_sent(user['user_id'])
+                            
+                            # Move to level 5 after reminder sent
+                            self.user_manager.update_user_level(user['user_id'], 5)
+                    except Exception as e:
+                        self.logger.warning(f"Error processing level 4 reminder for {user['user_id']}: {e}")
                 
                 stats['not_subscribed'] += 1
             
             await asyncio.sleep(0.5)
         
-        self.logger.info(f"Level 4 (subscription check): {stats}")
+        self.logger.info(f"Level 4 (subscription check + reminder): {stats}")
         return stats
     
     async def _get_latest_message(self, user_id: int) -> str:
-        """Get latest message from user"""
+        """Get latest message from user. Returns empty string if none found."""
         try:
-            messages = []
             client = self.client_manager.get_client()
             if client is None:
-                 raise RuntimeError("Telegram client not initialized")            
+                raise RuntimeError("Telegram client not initialized")            
+            
             user = self.user_manager.get_user(user_id)
             if not user or not user.get('last_message_date'):
                 return ""
             
-
             last_bot_message_time = datetime.fromisoformat(user['last_message_date'])
             
             user_messages = []
@@ -185,7 +186,7 @@ class LevelProcessor:
             
         except Exception as e:
             self.logger.warning(f"Failed to get message from {user_id}: {e}")
-            return None
+            return ""
 
     async def _check_channel_member(self, user_id: int) -> bool:
         client = self.client_manager.get_client()

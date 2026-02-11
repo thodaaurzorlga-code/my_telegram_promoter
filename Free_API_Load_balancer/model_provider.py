@@ -38,7 +38,25 @@ class GroqLLMProvider(LLMProvider):
             model=self.model,
             messages=[{"role": "user", "content": prompt}]
         )
-        return response.choices[0].message.content
+        content = response.choices[0].message.content
+        
+        # Ensure we're returning text, not a score or number
+        if content is None:
+            return ""
+        
+        content_str = str(content).strip()
+        
+        # If it's just a float/number (logit score), something went wrong
+        try:
+            float(content_str)
+            # If this succeeds, we got a numeric response instead of text
+            raise ValueError(f"Groq returned numeric response instead of text: {content_str}")
+        except ValueError as e:
+            if "could not convert" not in str(e).lower():
+                # Re-raise if it's our error, not a float conversion error
+                raise
+        
+        return content_str
 
 
 # ===================== Registry =====================

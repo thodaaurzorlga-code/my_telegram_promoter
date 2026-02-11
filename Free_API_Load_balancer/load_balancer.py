@@ -56,14 +56,19 @@ class LoadBalancer:
         user_email=data['User_ID']
         model=data['Model']
                 # Try env variable first (GitHub Actions)
+        api_key = None        
         env_key_name = self.config['users'][user_email][platform_name].get('env_key')
-
+        print(f"Looking for env variable: {env_key_name}")
         if env_key_name:
             api_key = os.getenv(env_key_name)
+            print(api_key)
 
         # Fallback to YAML (local development)
         if not api_key:
+            
             api_key = self.config['users'][user_email][platform_name]['api_keys'][0]['key']
+            print(api_key)
+            print(f"Using API key from config for user {user_email} and platform {platform_name}")
 
 
         provider_class=ProviderRegistry.get(platform_name)
@@ -89,8 +94,11 @@ class LoadBalancer:
                 Current_Ct_Tokens=0
             if row["Current_Ct_Day"] is None:
                 Current_Ct_Day=0    
+            # Filter to only use Text-out models, skip Classification models
+            is_text_out_model = row.get("Category") == "Text-out models"
             if (
-                Current_Ct_Tokens + total_tokens_needed <= row["Tokens per Day"]
+                is_text_out_model
+                and Current_Ct_Tokens + total_tokens_needed <= row["Tokens per Day"]
                 and Current_Ct_Day + 1 <= row["Requests per Day"] 
 
             ):

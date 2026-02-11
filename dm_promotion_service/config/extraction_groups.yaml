@@ -8,16 +8,16 @@ extraction:
     - username: "@my_promotions"
       name: "My Promotions"
 
-      # username: "@leetcode_answers"
-      # name: "LeetCode Answers"
+      username: "@leetcode_answers"
+      name: "LeetCode Answers"
 
-      # username: "@cognizant_exam_discussion_group"
-      # name: "Cognizant Exam Discussion Group"
+      username: "@cognizant_exam_discussion_group"
+      name: "Cognizant Exam Discussion Group"
  
 
  
 
 dm_limits:
-  max_per_day: 2
+  max_per_day: 1
 
 promotion_channel: "Jobs_Lelo"

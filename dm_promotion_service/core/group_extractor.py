@@ -55,8 +55,12 @@ class GroupExtractor:
                     if stats['added'] >= max_additions:
                         break
                     
-                    # is_seeker = await self.analyzer.categorize_user(msg['text'])
-                    is_seeker = True  # Assume all users are job seekers for now
+                    # Use AI to categorize if enabled, otherwise assume all are job seekers
+                    use_ai_categorization = self.config.get('extraction', {}).get('use_ai_categorization', False)
+                    if use_ai_categorization:
+                        is_seeker = await self.analyzer.categorize_user(msg['text'])
+                    else:
+                        is_seeker = True  # Assume all users are job seekers for now
                     
                     if is_seeker:
                         added = self.user_manager.add_user(

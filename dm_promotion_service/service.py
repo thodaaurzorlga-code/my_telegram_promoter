@@ -39,22 +39,21 @@ class DMPromotionService:
     def _should_extract(self) -> bool:
         """Check if enough time has passed for another extraction"""
         extraction_log = Path(__file__).parent / "data" / "extraction_log.txt"
-        self.logger.info(f"extraction_log={extraction_log}")
+        
         if not extraction_log.exists():
             extraction_log.write_text(datetime.now(timezone.utc).isoformat())
             return True
-        self.logger.info(f"extraction_log={extraction_log}")
+        
         try:
             last_time = extraction_log.read_text().strip()
-            
             last_extraction = datetime.fromisoformat(last_time)
-            
             time_diff = (datetime.now(timezone.utc) - last_extraction).days
             
             if time_diff >= self.extraction_interval_days:
                 extraction_log.write_text(datetime.now(timezone.utc).isoformat())
                 return True
-        except:
+        except Exception as e:
+            self.logger.warning(f"Error reading extraction log: {e}")
             extraction_log.write_text(datetime.now(timezone.utc).isoformat())
             return True
         
