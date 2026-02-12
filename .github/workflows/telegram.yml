@@ -53,12 +53,21 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Commit and push fetch_log update
+      - name: Commit and push data files
         run: |
-          if git diff --quiet telegram_bot_module/fetch_log.json; then
-            echo "No changes to fetch_log.json"
+          # Add all data files that may have been modified
+          git add telegram_bot_module/fetch_log.json
+          git add group_promotion_service/data/groups_progress.xlsx
+          git add dm_promotion_service/data/users_engagement.xlsx
+          git add dm_promotion_service/data/extraction_log.txt
+          git add dm_promotion_service/config/level_messages.yaml
+          git add telegram_bot_module/message_config.xlsx
+          git add Free_API_Load_balancer/Limits.xlsx
+          
+          # Check if there are any changes to commit
+          if git diff --cached --quiet; then
+            echo "No changes to data files"
           else
-            git add telegram_bot_module/fetch_log.json
-            git commit -m "Update fetch_log.json - Bot run at $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git commit -m "Update data files - Bot run at $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
             git push origin HEAD:${{ github.ref }}
           fi
