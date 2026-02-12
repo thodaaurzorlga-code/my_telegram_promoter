@@ -18,7 +18,7 @@ class DMPromotionService:
         self.level_processor = LevelProcessor(client_manager, self.user_manager, self.conv_handler)
         
         self.last_extraction = None
-        self.extraction_interval_days = 2
+        self.extraction_interval_days = 0
     
     async def run(self):
         """Main execution loop"""
