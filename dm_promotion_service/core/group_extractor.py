@@ -33,14 +33,17 @@ class GroupExtractor:
         client = self.client_manager.get_client()
         if client is None:
             raise RuntimeError("Telegram client not initialized")
+        since = datetime.now(timezone.utc) - timedelta(days=1)
         for group in groups:
             try:
                 messages = []
                 async for message in client.iter_messages(
                     group['username'],
-                    limit=5,
-                    reverse=False
+                    offset_date=since,
+                    reverse=True
                 ):
+                    if message.date < since:
+                        break    
                     if message.text and message.sender_id:
                         messages.append({
                             'text': message.text,
