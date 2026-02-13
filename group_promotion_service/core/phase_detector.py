@@ -18,7 +18,7 @@ class PhaseDetector:
             now = datetime.now(timezone.utc)
             days_active = (now - join_date).days
             
-            if days_active <= 0:
+            if days_active <= 9:
                 return 1
             elif days_active <= 10:
                 return 2
