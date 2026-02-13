@@ -47,7 +47,20 @@ class LevelProcessor:
         
         self.logger.info(f"Level processing complete: {results}")
         return results
-    
+    async def check_if_conversatiion_exists(self, user_id: int) -> bool:
+        try:
+            client = self.client_manager.get_client()
+            if client is None:
+                raise RuntimeError("Telegram client not initialized")  
+            
+            async for msg in client.iter_messages(user_id, limit=1):
+                return True
+            return False
+
+        except Exception as e:
+            self.logger.warning(f"Failed to get message from {user_id}: {e}")
+            return ""
+
     async def _process_level_1(self) -> Dict[str, int]:
         """Check level 0 users for affirmative responses"""
         stats = {"promoted": 0, "no_response": 0, "declined": 0, "unclear": 0}
@@ -107,7 +120,7 @@ class LevelProcessor:
         """Check level 4 users for channel subscription and send reminder after 1-2 days if not subscribed"""
         stats = {"subscribed": 0, "not_subscribed": 0, "reminder_sent": 0}
         
-        users = self.user_manager.get_users_by_level(2)
+        users = self.user_manager.get_users_by_level(4)
         
         for user in users:
             is_member = await self._check_channel_member(user['user_id'])

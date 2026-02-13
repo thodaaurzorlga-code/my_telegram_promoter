@@ -34,7 +34,8 @@ class UserManager:
                 'subscription_checked',
                 'level_4_reminder_sent',
                 'decision',
-                'notes'
+                'notes',
+                'first_added_date'
             ])
             df.to_excel(self.excel_path, index=False)
             self.logger.info(f"Created new Excel file: {self.excel_path}")
@@ -54,7 +55,8 @@ class UserManager:
                 'subscription_checked': 'boolean',
                 'level_4_reminder_sent': 'boolean',
                 'decision': 'string',
-                'notes': 'string'
+                'notes': 'string',
+                'first_added_date': 'string',
             })
 
             return df
@@ -85,7 +87,8 @@ class UserManager:
             'subscription_checked': False,
             'level_4_reminder_sent': False,
             'decision': None,
-            'notes': 'Added during extraction'
+            'notes': 'Added during extraction',
+            'first_added_date': datetime.now(timezone.utc).date().isoformat()
         }
         
         self.df = pd.concat([self.df, pd.DataFrame([new_row])], ignore_index=True)
@@ -113,6 +116,11 @@ class UserManager:
         self.df.loc[mask, 'last_message_date'] = message_date.isoformat()
         self._save_excel()
     
+    def get_no_of_users_by_current_date_as_first_added_date(self) -> int:
+        current_date = datetime.now(timezone.utc).date().isoformat()
+        users = self.df[self.df['first_added_date'] == current_date].to_dict('records')
+        return len(users)    
+
     def update_user_response(self, user_id: int, response_text: str, status: str):
         """Update user response and status (yes/no/unclear)"""
         mask = self.df['user_id'] == user_id
@@ -144,7 +152,8 @@ class UserManager:
         """Get specific user by ID"""
         users = self.df[self.df['user_id'] == user_id].to_dict('records')
         return users[0] if users else None
-    
+
+
     def reload(self):
         """Reload DataFrame from Excel"""
         self.df = self._load_excel()

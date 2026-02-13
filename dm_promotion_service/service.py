@@ -26,6 +26,7 @@ class DMPromotionService:
         
         should_extract = self._should_extract()
         self.logger.info(f"should_extract={should_extract}")
+        
         if should_extract:
             self.logger.info("Running user extraction and categorization")
             await self.group_extractor.extract_and_categorize()
@@ -44,6 +45,8 @@ class DMPromotionService:
             extraction_log.write_text(datetime.now(timezone.utc).isoformat())
             return True
         
+        
+
         try:
             last_time = extraction_log.read_text().strip()
             last_extraction = datetime.fromisoformat(last_time)

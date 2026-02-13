@@ -5,7 +5,8 @@ import yaml
 from pathlib import Path
 from .user_manager import UserManager
 from .response_analyzer import ResponseAnalyzer
-
+from .level_processor import LevelProcessor
+from .conversation_handler import ConversationHandler
 
 class GroupExtractor:
     """Extract users from groups and categorize them"""
@@ -14,6 +15,8 @@ class GroupExtractor:
         self.logger = logging.getLogger(__name__)
         self.client_manager = client_manager
         self.user_manager = user_manager
+        self.conv_handler = ConversationHandler(client_manager, self.user_manager)
+        self.level_processor = LevelProcessor(client_manager, self.user_manager, self.conv_handler) # Will be set later to avoid circular dependency
         self.analyzer = ResponseAnalyzer()
         
         config_path = Path(__file__).parent.parent / "config" / "extraction_groups.yaml"
@@ -26,10 +29,13 @@ class GroupExtractor:
         extracted_users: Set[int] = set()
         
         groups = self.config['extraction']['groups']
-        max_additions = (
-            self.config['dm_limits']['max_per_day'] * 
-            self.config['extraction']['frequency_days']
-        )
+        # max_additions = (
+        #     self.config['dm_limits']['max_per_day'] * 
+        #     self.config['extraction']['frequency_days']
+        # )
+        no_of_users_added_today = self.user_manager.get_no_of_users_by_current_date_as_first_added_date()
+        max_additions = max(0,4-no_of_users_added_today)  # Ensure we don't add more than the daily limit
+
         client = self.client_manager.get_client()
         if client is None:
             raise RuntimeError("Telegram client not initialized")
@@ -37,6 +43,9 @@ class GroupExtractor:
         for group in groups:
             try:
                 messages = []
+                if max_additions <= 0:
+                    self.logger.info("Daily user addition limit reached, skipping extraction")
+                    break
                 async for message in client.iter_messages(
                     group['username'],
                     offset_date=since,
@@ -44,7 +53,8 @@ class GroupExtractor:
                 ):
                     if message.date < since:
                         break    
-                    if message.text and message.sender_id:
+                    has_prev_conversation = await self.level_processor.check_if_conversatiion_exists(message.sender_id)
+                    if message.text and message.sender_id and not has_prev_conversation:
                         messages.append({
                             'text': message.text,
                             'sender_id': message.sender_id,

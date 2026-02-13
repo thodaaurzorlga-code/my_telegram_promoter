@@ -22,7 +22,7 @@ class TrustBuilder:
         try:
             # Fetch recent messages
             messages = []
-            async for msg in client.iter_messages(entity, limit=20, reverse=False):
+            async for msg in client.iter_messages(entity, limit=10, reverse=False):
                 if msg.text and not msg.from_scheduled:
                     messages.append(msg)
             
@@ -64,7 +64,7 @@ class TrustBuilder:
         try:
             # Fetch recent messages
             messages = []
-            async for msg in client.iter_messages(entity, limit=20, reverse=False):
+            async for msg in client.iter_messages(entity, limit=10, reverse=False):
                 if msg.text and not msg.from_scheduled and msg.sender_id:
                     messages.append(msg)
             
@@ -86,9 +86,14 @@ class TrustBuilder:
                 prompt_template = self.message_selector.config.get('ai_reply_prompt', "Reply to: {message_text}")
                 
                 prompt = prompt_template.format(message_text=msg.text)
-                print(prompt)
-                reply_text = generate(prompt=prompt, max_output_tokens=10)
-
+                # print(prompt)
+                reply_text_ai = generate(prompt=prompt, max_output_tokens=10)
+                reply_text_real = self.message_selector.select_phase_3_post(entity)
+                reply_text = random.choices(
+                    [reply_text_ai, reply_text_real],
+                    weights=[0.7, 0.3],
+                    k=1
+                )[0]
                 if await self._send_reply(entity, msg.id, reply_text):
                     self.group_manager.add_replied_message(entity, msg.id)
                     stats['replied'] += 1
