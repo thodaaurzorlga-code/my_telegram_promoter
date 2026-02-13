@@ -1,275 +1,213 @@
 groups:
-  - username: "@Accenture_answers_discussion"
-    name: "Accenture_answers_discussion"
+  - username: "@deloitte_exam_answers"
+    name: "deloitte_exam_answers"
     link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
+    max_posts_per_day: 2
+    max_replies_per_day: 3
     max_reactions_per_day: 5
-    time_ranges: ["00:00-01:02"]
+    time_ranges: ["17:00-19:30"]
 
-  - username: "@tcs_solution"
-    name: "tcs_solution"
+  - username: "@codevita_exam_solutions"
+    name: "codevita_exam_solutions"
     link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
+    max_posts_per_day: 2
+    max_replies_per_day: 3
     max_reactions_per_day: 5
-    time_ranges: ["00:42-01:44"]
-
-  - username: "@NITWfreshers26"
-    name: "NITWfreshers26"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["01:24-02:26"]
-
-  - username: "@Mnit_jaipurfreshers2022"
-    name: "Mnit_jaipurfreshers2022"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["02:06-03:08"]
-
-  - username: "@CrazyProgrammer_IT_IS"
-    name: "CrazyProgrammer_IT_IS"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["02:48-03:50"]
-
-  - username: "@nitwarangalfresher24"
-    name: "nitwarangalfresher24"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["03:30-04:32"]
-
-  - username: "@nitw27"
-    name: "nitw27"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["04:12-05:14"]
-
-  - username: "@nit_srinagar_2023_batch"
-    name: "nit_srinagar_2023_batch"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["04:54-05:56"]
+    time_ranges: ["19:30-22:00"]
 
   - username: "@chatter007"
     name: "chatter007"
     link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["05:36-06:38"]
+    max_posts_per_day: 2
+    max_replies_per_day: 2
+    max_reactions_per_day: 4
+    time_ranges: ["22:00-22:40"]
 
-  - username: "@ABVIIITG"
-    name: "ABVIIITG"
+  - username: "@codechef_answers"
+    name: "codechef_answers"
+    link_enabled: false
+    max_posts_per_day: 2
+    max_replies_per_day: 2
+    max_reactions_per_day: 4
+    time_ranges: ["22:40-23:20"]
+
+  - username: "@codeforces_answers"
+    name: "codeforces_answers"
+    link_enabled: false
+    max_posts_per_day: 2
+    max_replies_per_day: 2
+    max_reactions_per_day: 4
+    time_ranges: ["23:20-24:00"]
+      
+  - username: "@Accenture_answers_discussion"
+    name: "Accenture_answers_discussion"
     link_enabled: false
     max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["06:18-07:20"]
-
-  - username: "@nit_srinagar_2024_batch"
-    name: "nit_srinagar_2024_batch"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["07:00-08:02"]
-
-  - username: "@nitgoastudents"
-    name: "nitgoastudents"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["07:42-08:44"]
+    max_replies_per_day: 2
+    max_reactions_per_day: 3
+    time_ranges: ["10:00-10:50"]
 
   - username: "@code2careerai"
     name: "code2careerai"
     link_enabled: false
     max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["08:24-09:26"]
+    max_replies_per_day: 2
+    max_reactions_per_day: 3
+    time_ranges: ["10:50-11:40"]
+
+  - username: "@cognizant_exam_discussion_groups"
+    name: "cognizant_exam_discussion_groups"
+    link_enabled: false
+    max_posts_per_day: 1
+    max_replies_per_day: 2
+    max_reactions_per_day: 3
+    time_ranges: ["11:40-12:30"]
+
+  - username: "@oadiscussionpoint"
+    name: "oadiscussionpoint"
+    link_enabled: false
+    max_posts_per_day: 1
+    max_replies_per_day: 2
+    max_reactions_per_day: 3
+    time_ranges: ["12:30-13:20"]
+
+  - username: "@fresheroffcampusdiscussion"
+    name: "fresheroffcampusdiscussion"
+    link_enabled: false
+    max_posts_per_day: 1
+    max_replies_per_day: 2
+    max_reactions_per_day: 3
+    time_ranges: ["13:20-14:10"]
+
+  - username: "@unstop_group_exam"
+    name: "unstop_group_exam"
+    link_enabled: false
+    max_posts_per_day: 1
+    max_replies_per_day: 2
+    max_reactions_per_day: 3
+    time_ranges: ["14:10-15:00"]
 
   - username: "@LWA_Walmart_CodeHers"
     name: "LWA_Walmart_CodeHers"
     link_enabled: false
     max_posts_per_day: 1
     max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["09:06-10:08"]
-
-  - username: "@deloitte_exam_answers"
-    name: "deloitte_exam_answers"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["09:48-10:50"]
-
-  - username: "@cognizant_exam_discussion_groups"
-    name: "cognizant_exam_discussion_groups"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["10:30-11:32"]
-
-  - username: "@codechef_answers"
-    name: "codechef_answers"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["11:12-12:14"]
-
-  - username: "@codeforces_answers"
-    name: "codeforces_answers"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["11:54-12:56"]
+    max_reactions_per_day: 2
+    time_ranges: ["06:00-06:40"]
 
   - username: "@codechef_codeforces_leetcode_cp"
     name: "codechef_codeforces_leetcode_cp"
     link_enabled: false
     max_posts_per_day: 1
     max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["12:36-13:38"]
+    max_reactions_per_day: 2
+    time_ranges: ["06:40-07:20"]
 
   - username: "@dsa_discussion_group"
     name: "dsa_discussion_group"
     link_enabled: false
     max_posts_per_day: 1
     max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["13:18-14:20"]
-
-  - username: "@codehelpOA"
-    name: "codehelpOA"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["14:00-15:02"]
+    max_reactions_per_day: 2
+    time_ranges: ["07:20-08:00"]
 
   - username: "@gfg_answers"
     name: "gfg_answers"
     link_enabled: false
     max_posts_per_day: 1
     max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["14:42-15:44"]
-
-  - username: "@codevita_exam_solutions"
-    name: "codevita_exam_solutions"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["15:24-16:26"]
-
-  - username: "@IIThyd21JUNEtest"
-    name: "IIThyd21JUNEtest"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["16:06-17:08"]
+    max_reactions_per_day: 2
+    time_ranges: ["08:00-08:40"]
 
   - username: "@hashtag_ai"
     name: "hashtag_ai"
     link_enabled: false
     max_posts_per_day: 1
     max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["16:48-17:50"]
+    max_reactions_per_day: 2
+    time_ranges: ["08:40-09:20"]
 
   - username: "@jobs_internships_group"
     name: "jobs_internships_group"
     link_enabled: false
     max_posts_per_day: 1
     max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["17:30-18:32"]
+    max_reactions_per_day: 2
+    time_ranges: ["09:20-10:00"]
 
-  - username: "@oadiscussionpoint"
-    name: "oadiscussionpoint"
+  - username: "@tcs_solution"
+    name: "tcs_solution"
     link_enabled: false
     max_posts_per_day: 1
     max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["18:12-19:14"]
+    max_reactions_per_day: 1
+    time_ranges: ["00:00-00:40"]
+
+  - username: "@NITWfreshers26"
+    name: "NITWfreshers26"
+    link_enabled: false
+    max_posts_per_day: 1
+    max_replies_per_day: 1
+    max_reactions_per_day: 1
+    time_ranges: ["00:40-01:20"]
+
+  - username: "@Mnit_jaipurfreshers2022"
+    name: "Mnit_jaipurfreshers2022"
+    link_enabled: false
+    max_posts_per_day: 1
+    max_replies_per_day: 1
+    max_reactions_per_day: 1
+    time_ranges: ["01:20-02:00"]
+
+  - username: "@CrazyProgrammer_IT_IS"
+    name: "CrazyProgrammer_IT_IS"
+    link_enabled: false
+    max_posts_per_day: 1
+    max_replies_per_day: 1
+    max_reactions_per_day: 1
+    time_ranges: ["02:00-02:40"]
+
+  - username: "@nit_srinagar_2023_batch"
+    name: "nit_srinagar_2023_batch"
+    link_enabled: false
+    max_posts_per_day: 1
+    max_replies_per_day: 1
+    max_reactions_per_day: 1
+    time_ranges: ["02:40-03:20"]
+
+  - username: "@nit_srinagar_2024_batch"
+    name: "nit_srinagar_2024_batch"
+    link_enabled: false
+    max_posts_per_day: 1
+    max_replies_per_day: 1
+    max_reactions_per_day: 1
+    time_ranges: ["03:20-04:00"]
+
+  - username: "@nitgoastudents"
+    name: "nitgoastudents"
+    link_enabled: false
+    max_posts_per_day: 1
+    max_replies_per_day: 1
+    max_reactions_per_day: 1
+    time_ranges: ["04:00-04:40"]
+
+  - username: "@IIThyd21JUNEtest"
+    name: "IIThyd21JUNEtest"
+    link_enabled: false
+    max_posts_per_day: 1
+    max_replies_per_day: 1
+    max_reactions_per_day: 1
+    time_ranges: ["04:40-05:20"]
 
   - username: "@nitsurathkla"
     name: "nitsurathkla"
     link_enabled: false
     max_posts_per_day: 1
     max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["18:54-19:56"]
+    max_reactions_per_day: 1
+    time_ranges: ["05:20-06:00"]
 
-  - username: "@fresheroffcampusdiscussion"
-    name: "fresheroffcampusdiscussion"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["19:36-20:38"]
 
-  - username: "@ton_pay_community"
-    name: "ton_pay_community"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["20:18-21:20"]
-
-  - username: "@unstop_group_exam"
-    name: "unstop_group_exam"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["21:00-22:02"]
-
-  - username: "@freshershunt24"
-    name: "freshershunt24"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["21:42-22:44"]
-
-  - username: "@placement_lelo"
-    name: "placement_lelo"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["22:24-23:26"]
-
-  - username: "@leetcode8"
-    name: "leetcode8"
-    link_enabled: false
-    max_posts_per_day: 1
-    max_replies_per_day: 1
-    max_reactions_per_day: 5
-    time_ranges: ["23:06-23:59"]
 
 message_rotation:
   policy: "random_no_repeat_7days"
