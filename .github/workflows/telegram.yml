@@ -61,7 +61,6 @@ jobs:
           git add dm_promotion_service/data/users_engagement.xlsx
           git add dm_promotion_service/data/extraction_log.txt
           git add dm_promotion_service/config/level_messages.yaml
-          git add telegram_bot_module/message_config.xlsx
           git add Free_API_Load_balancer/Limits.xlsx
           
           # Check if there are any changes to commit
